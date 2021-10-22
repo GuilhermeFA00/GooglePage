@@ -1,4 +1,5 @@
 import Page from "./contents/page.js"
+import style from "./contents/style.js";
 
 const pathToRegex = path => new RegExp("^" + path.replace(/\//g, "\\/").replace(/:\w+/g, "(.+)") + "$");
 
@@ -10,11 +11,6 @@ const getParams = match => {
         return [key, values[i]];
     }));
 };
-
-/*const navigateTo = url => {
-    history.pushState(null, null, url);
-    router();
-};*/
 
 const router = async () => {
     const routes = [
@@ -40,9 +36,9 @@ const router = async () => {
     const view = new match.route.view(getParams(match));
 
     document.querySelector("#app").innerHTML = await view.getHtml();
-}
 
-//window.addEventListener('popstate', router);
+    style();
+}
 
 document.addEventListener('DOMContentLoaded', () => {
     router();
